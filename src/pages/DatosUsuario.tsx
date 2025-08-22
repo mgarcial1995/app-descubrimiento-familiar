@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logoarbol.png';
 import Input from '../components/Input';
-import Select from 'react-select/base';
+// import Select from 'react-select/base';
 
 const DatosUsuario = () => {
   const navigate = useNavigate();
