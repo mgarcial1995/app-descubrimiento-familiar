@@ -29,21 +29,21 @@ const DatosUsuario = () => {
               <p className="text-[#4A7729] font-medium mb-1">
                 Tipo de Documento
               </p>
-              <Select
+              {/* <Select
                 className="basic-single w-full"
                 classNamePrefix="select"
                 isSearchable
                 name="tipo_doc"
                 onChange={()=>{}}
-                // value={{
-                //   label: participante.tipo_doc || '',
-                //   value: participante.tipo_doc || '',
-                // }}
+                value={{
+                  label: participante.tipo_doc || '',
+                  value: participante.tipo_doc || '',
+                }}
                 options={[
                     { label:"Documento", value: "dni" },
                     { label:"Nombre", value: "nombre" },
                 ]}
-              />
+              /> */}
             </div>
             <div className="w-4/6">
               <Input
