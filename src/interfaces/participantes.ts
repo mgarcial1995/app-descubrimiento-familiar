@@ -8,6 +8,7 @@ export interface IParticipante {
   celular?: string;
   correo?: string;
   es_miembro: boolean;
+  asistio: boolean;
   cuenta_fs?: string;
   rol?: string;
 }

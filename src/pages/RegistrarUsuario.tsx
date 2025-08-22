@@ -19,6 +19,7 @@ const RegistrarUsuario = () => {
     correo: '',
     distrito: '',
     es_miembro: false,
+    asistio: true,
   };
 
   const [participante, setParticipante] = useState(datosinit);

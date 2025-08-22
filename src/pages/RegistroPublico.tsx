@@ -21,6 +21,7 @@ const RegistrarUsuario = () => {
     correo: '',
     distrito: '',
     es_miembro: false,
+    asistio: false,
   };
 
   const [participante, setParticipante] = useState(datosinit);
@@ -142,7 +143,8 @@ const RegistrarUsuario = () => {
         <div className="w-full md:w-fit flex gap-4 items-center">
           <img className="w-12" src={logo} />
           <p className="w-full text-2xl font-medium leading-none text-[#4A7729]">
-            {' '}
+            Descubrimiento Familiar
+            <br></br>
             Regístrate y disfruta
           </p>
         </div>
