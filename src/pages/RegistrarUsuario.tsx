@@ -6,6 +6,11 @@ import Select from 'react-select';
 import { useState } from 'react';
 import Boton from '../components/Boton';
 import { useNavigate } from 'react-router-dom';
+import { registrarParticipante } from '../services/participanteService';
+import type { AxiosError } from 'axios';
+import Modal from '../components/Modal';
+import type { IParticipante } from '../interfaces/participantes';
+import { Check } from "lucide-react";
 
 const RegistrarUsuario = () => {
   const navigate = useNavigate();
@@ -20,10 +25,14 @@ const RegistrarUsuario = () => {
     distrito: '',
     es_miembro: false,
     asistio: true,
+    crear_cuenta_fs: false,
   };
 
   const [participante, setParticipante] = useState(datosinit);
   const [butonState, setButonState] = useState(false);
+  const [textoBoton, setTextoBotone] = useState('Registrar');
+  const [datosParticipante, setDatosParticipante] = useState<IParticipante>();
+  const [toggleModal, setToggleModal] = useState(false);
 
   const distritos = [
     { label: 'Ancón', value: 'Ancón' },
@@ -94,12 +103,34 @@ const RegistrarUsuario = () => {
     }));
   };
 
-  const registrarParticipante = () => {
-    console.log(participante);
+  const guardarDatos = async () => {
     setButonState(true);
-    setTimeout(() => {
-      navigate('/');
-    }, 1000);
+    setTextoBotone('Guardando...');
+    try {
+      const result = await registrarParticipante(participante);
+      console.log(result);
+      if (result.success) {
+        setDatosParticipante(result.data);
+        setButonState(false);
+        setToggleModal(true)
+        setTextoBotone('Registrar');
+      } else {
+        alert(result.message);
+        setButonState(false);
+        setTextoBotone('Registrar');
+      }
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ message: string }>;
+      if (error.response) {
+        alert('⚠️ ' + error.response.data.message);
+        setButonState(false);
+        setTextoBotone('Registrar');
+      } else {
+        alert('Error de red: ' + error.message);
+        setButonState(false);
+        setTextoBotone('Registrar');
+      }
+    }
   };
 
   const isFormValid = () => {
@@ -109,14 +140,60 @@ const RegistrarUsuario = () => {
       participante.nombres.trim() !== '' &&
       participante.apellidos.trim() !== '' &&
       participante.distrito.trim() !== '' &&
-      participante.direccion.trim() !== '' &&
-      participante.celular.trim() !== '' &&
-      participante.correo.trim() !== ''
+      participante.direccion.trim() !== ''
     );
   };
 
   return (
     <div className="w-full h-full bg-[#FFF8E7] flex justify-center">
+      <Modal isOpen={toggleModal} onClose={() => setToggleModal(false)}>
+        <div className='w-full'>
+            <div className='w-full text-center'>
+                <p className='text-lg font-medium text-[#4A7729]'>Usuario Registrado</p>
+            </div>
+            <div className="w-16 h-16 mx-auto my-4 rounded-full bg-[#6BA539] flex items-center justify-center text-white text-2xl font-bold">
+                <Check size={24} />
+            </div>
+            <div className='my-4'>
+                <div className="flex items-center gap-3">
+                    <span className="text-[#00674D] font-medium">Nombre:</span>
+                    <span className="text-#[333333]">{datosParticipante?.nombres} {datosParticipante?.apellidos}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <span className="text-[#00674D] font-medium">Documento:</span>
+                    <span className="text-#[333333]">{datosParticipante?.tipo_documento}-{datosParticipante?.documento}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <span className="text-[#00674D] font-medium">Dirección:</span>
+                    <span className="text-#[333333]">{datosParticipante?.direccion}-{datosParticipante?.distrito}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <span className="text-[#00674D] font-medium">Celular:</span>
+                    <span className="text-#[333333]">{datosParticipante?.celular}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <span className="text-[#00674D] font-medium">Correo:</span>
+                    <span className="text-#[333333]">{datosParticipante?.correo}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <span className="text-[#00674D] font-medium">Miembro:</span>
+                    <span className="text-#[333333]">{datosParticipante?.es_miembro ? 'Si' : 'No'}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <span className="text-[#00674D] font-medium">Desea crear cuenta FS:</span>
+                    <span className="text-#[333333]"> {datosParticipante?.crear_cuenta_fs ? 'Si' : 'No'} </span>
+                </div>
+            </div>
+            <div>
+                <Boton
+                    styles="text-center "
+                    onClick={() => {navigate('/');}}
+                    texto="Aceptar"
+                    disabled={!isFormValid() || butonState}
+                />
+            </div>
+        </div>
+      </Modal>
       <div className="w-full md:w-2xl md:mt-8 gap-2 p-4 h-fit bg-white flex flex-col items-center">
         <div className="w-full flex justify-start">
           <p
@@ -136,7 +213,7 @@ const RegistrarUsuario = () => {
         </div>
         <div className="w-full flex flex-col gap-2">
           <div className="w-full flex flex-col md:flex-row gap-2">
-            <div className="w-1/2 flex flex-col md:w-1/2">
+            <div className="w-full flex flex-col md:w-1/2">
               <p className="text-[#4A7729] font-medium mb-1">
                 Tipo de Documento
               </p>
@@ -153,7 +230,7 @@ const RegistrarUsuario = () => {
                 options={tipoDoc}
               />
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <Input
                 label="Nro. documento"
                 name="documento"
@@ -225,13 +302,24 @@ const RegistrarUsuario = () => {
                 }
               />
             </div>
+            <div className="w-full">
+              <p className="text-[#4A7729] font-medium mb-4">
+                ¿Desea crear una cuenta en Family Search?
+              </p>
+              <Switcher
+                checked={participante.crear_cuenta_fs}
+                onChange={(e) =>
+                  setParticipante({ ...participante, crear_cuenta_fs: e })
+                }
+              />
+            </div>
           </div>
         </div>
         <div className="w-full mt-4">
           <Boton
             styles="text-center "
-            onClick={() => registrarParticipante()}
-            texto="Registrar participante"
+            onClick={() => guardarDatos()}
+            texto={textoBoton}
             disabled={!isFormValid() || butonState}
           />
         </div>

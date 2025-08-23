@@ -10,5 +10,6 @@ export interface IParticipante {
   es_miembro: boolean;
   asistio: boolean;
   cuenta_fs?: string;
+  crear_cuenta_fs?: boolean;
   rol?: string;
 }

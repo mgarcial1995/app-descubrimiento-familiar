@@ -22,6 +22,7 @@ const RegistrarUsuario = () => {
     distrito: '',
     es_miembro: false,
     asistio: false,
+    crear_cuenta_fs: false,
   };
 
   const [participante, setParticipante] = useState(datosinit);
@@ -99,29 +100,29 @@ const RegistrarUsuario = () => {
 
   const guardarDatos = async () => {
     setButonState(true);
-    setTextoBotone('Guardando...')
+    setTextoBotone('Guardando...');
     try {
       const result = await registrarParticipante(participante);
-      console.log(result)
+      console.log(result);
       if (result.success) {
         setButonState(false);
-        setTextoBotone('Registrarme')
+        setTextoBotone('Registrarme');
         navigate('/gracias');
       } else {
         alert(result.message);
         setButonState(false);
-        setTextoBotone('Registrarme')
+        setTextoBotone('Registrarme');
       }
     } catch (err: unknown) {
       const error = err as AxiosError<{ message: string }>;
       if (error.response) {
         alert('⚠️ ' + error.response.data.message);
         setButonState(false);
-        setTextoBotone('Registrarme')
+        setTextoBotone('Registrarme');
       } else {
         alert('Error de red: ' + error.message);
         setButonState(false);
-        setTextoBotone('Registrarme')
+        setTextoBotone('Registrarme');
       }
     }
   };
@@ -161,7 +162,7 @@ const RegistrarUsuario = () => {
         </div>
         <div className="w-full flex flex-col gap-2">
           <div className="w-full flex flex-col md:flex-row gap-2">
-            <div className="w-1/2 flex flex-col md:w-1/2">
+            <div className="w-full flex flex-col md:w-1/2">
               <p className="text-[#4A7729] font-medium mb-1">
                 Tipo de Documento
               </p>
@@ -178,7 +179,7 @@ const RegistrarUsuario = () => {
                 options={tipoDoc}
               />
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <Input
                 label="Nro. documento"
                 name="documento"
@@ -247,6 +248,17 @@ const RegistrarUsuario = () => {
                 checked={participante.es_miembro}
                 onChange={(e) =>
                   setParticipante({ ...participante, es_miembro: e })
+                }
+              />
+            </div>
+            <div className="w-full">
+              <p className="text-[#4A7729] font-medium mb-4">
+                ¿Desea crear una cuenta en Family Search?
+              </p>
+              <Switcher
+                checked={participante.crear_cuenta_fs}
+                onChange={(e) =>
+                  setParticipante({ ...participante, crear_cuenta_fs: e })
                 }
               />
             </div>

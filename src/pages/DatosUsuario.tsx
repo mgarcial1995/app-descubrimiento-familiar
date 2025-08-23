@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logoarbol.png';
 import Input from '../components/Input';
+import { Check } from 'lucide-react';
 // import Select from 'react-select/base';
 
 const DatosUsuario = () => {
@@ -17,6 +18,7 @@ const DatosUsuario = () => {
             {'< Volver'}
           </p>
         </div>
+
         <div className="w-full md:w-fit flex gap-4 items-center mb-4">
           <img className="w-12" src={logo} />
           <p className="w-36 text-2xl font-medium leading-none text-[#4A7729]">
@@ -53,6 +55,53 @@ const DatosUsuario = () => {
                 // onChange={handleChangeCampos}
               />
             </div>
+          </div>
+        </div>
+        <div className="text-center">
+          <p className="text-lg font-semibold text-[#6BA539] mb-4">
+            Usuario registrado con éxito
+          </p>
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#6BA539] flex items-center justify-center text-white text-2xl font-bold">
+            <Check size={24} />
+          </div>
+          <h2 className="text-xl font-semibold text-[#00674D] mb-2">
+            {/* {`${datosParticipante?.nombres} ${datosParticipante?.apellidos}`} */}
+          </h2>
+          <div className="bg-gray-50 rounded-lg p-4 shadow-inner text-left space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="text-[#00674D] font-medium">Documento:</span>
+              {/* <span className="text-gray-700">{datosParticipante?.tipo_documento}-{datosParticipante?.documento}</span> */}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[#00674D] font-medium">Correo:</span>
+              {/* <span className="text-gray-700">{datosParticipante?.correo}</span> */}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[#00674D] font-medium">Celular:</span>
+              {/* <span className="text-gray-700">{datosParticipante?.celular}</span> */}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[#00674D] font-medium">Dirección:</span>
+              {/* <span className="text-gray-700">{datosParticipante?.direccion}-{datosParticipante?.distrito}</span> */}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[#00674D] font-medium">Es miembro:</span>
+              {/* <span className="text-gray-700">{datosParticipante?.es_miembro ? 'Si' : 'No'}</span> */}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[#00674D] font-medium">Es miembro:</span>
+              {/* <span className="text-gray-700">{datosParticipante?.es_miembro ? 'Si' : 'No'}</span> */}
+            </div>
+          </div>
+
+          {/* Botón */}
+          <div className="mt-6">
+            <button
+              //   onClick={() => setToggleModal(false)}
+              className="px-4 py-2 rounded-lg bg-[#00674D] text-white hover:bg-[#00513C] transition"
+            >
+              Cerrar
+            </button>
           </div>
         </div>
       </div>
