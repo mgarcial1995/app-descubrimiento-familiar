@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import DatosUsuario from './pages/DatosUsuario';
 import RegistrarUsuario from './pages/RegistrarUsuario';
@@ -9,10 +9,10 @@ function App() {
   return (
     <Routes>
       {/* Redirige la raíz a /registro */}
-      <Route path="/" element={<Navigate to="/registro" />} />
+      {/* <Route path="/" element={<Navigate to="/registro" />} /> */}
 
       {/* Rutas */}
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/usuario" element={<DatosUsuario />} />
       <Route path="/registrar" element={<RegistrarUsuario />} />
       <Route path="/registro" element={<RegistroPublico />} />
