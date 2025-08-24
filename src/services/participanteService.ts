@@ -6,8 +6,18 @@ export const registrarParticipante = async (data: IParticipante) => {
   return response.data;
 };
 
-// Listar participantes
-// export const listarParticipantes = async () => {
-//   const response = await apiClient.get("/users");
-//   return response.data;
-// };
+export const traerDatosParticipante = async (id: string) => {
+  const response = await apiClient.get(`/participante/obtenerParticipante/${id}`);
+  return response.data;
+};
+
+export const traerParticipantes = async () => {
+  const response = await apiClient.get(`/participante/obtenerParticipantes`);
+  return response.data;
+};
+
+export const asistenciaParticipante = async (id: string) => {
+  const response = await apiClient.put(`/participante/asistenciaParticipante/${id}`);
+  return response.data;
+};
+

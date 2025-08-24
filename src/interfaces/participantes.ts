@@ -1,4 +1,5 @@
 export interface IParticipante {
+  id?: string;
   nombres: string;
   apellidos: string;
   direccion: string;
