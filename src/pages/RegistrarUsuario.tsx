@@ -15,8 +15,6 @@ import { Check } from "lucide-react";
 const RegistrarUsuario = () => {
   const navigate = useNavigate();
   const datosinit = {
-    tipo_documento: '',
-    documento: '',
     nombres: '',
     apellidos: '',
     direccion: '',
@@ -81,12 +79,6 @@ const RegistrarUsuario = () => {
     { label: 'Otro', value: 'Otro' },
   ];
 
-  const tipoDoc = [
-    { label: 'DNI', value: 'DNI' },
-    { label: 'C.E.', value: 'C.E.' },
-    { label: 'Otro', value: 'Otro' },
-  ];
-
   const handleChangeCampos = (e: any) => {
     const { name, type, value, checked } = e.target;
 
@@ -135,8 +127,6 @@ const RegistrarUsuario = () => {
 
   const isFormValid = () => {
     return (
-      participante.tipo_documento.trim() !== '' &&
-      participante.documento.trim() !== '' &&
       participante.nombres.trim() !== '' &&
       participante.apellidos.trim() !== '' &&
       participante.distrito.trim() !== '' &&
@@ -158,10 +148,6 @@ const RegistrarUsuario = () => {
                 <div className="flex items-center gap-3">
                     <span className="text-[#00674D] font-medium">Nombre:</span>
                     <span className="text-#[333333]">{datosParticipante?.nombres} {datosParticipante?.apellidos}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                    <span className="text-[#00674D] font-medium">Documento:</span>
-                    <span className="text-#[333333]">{datosParticipante?.tipo_documento}-{datosParticipante?.documento}</span>
                 </div>
                 <div className="flex items-center gap-3">
                     <span className="text-[#00674D] font-medium">Dirección:</span>
@@ -212,33 +198,6 @@ const RegistrarUsuario = () => {
           </p>
         </div>
         <div className="w-full flex flex-col gap-2">
-          <div className="w-full flex flex-col md:flex-row gap-2">
-            <div className="w-full flex flex-col md:w-1/2">
-              <p className="text-[#4A7729] font-medium mb-1">
-                Tipo de Documento
-              </p>
-              <Select
-                className="basic-single w-full"
-                classNamePrefix="select"
-                isSearchable
-                name="tipo_documento"
-                onChange={handleChangeSelect}
-                value={{
-                  label: participante.tipo_documento || '',
-                  value: participante.tipo_documento || '',
-                }}
-                options={tipoDoc}
-              />
-            </div>
-            <div className="w-full md:w-1/2">
-              <Input
-                label="Nro. documento"
-                name="documento"
-                value={participante.documento}
-                onChange={handleChangeCampos}
-              />
-            </div>
-          </div>
           <div className="w-full flex flex-col md:flex-row gap-2">
             <Input
               label="Nombres"
@@ -293,7 +252,7 @@ const RegistrarUsuario = () => {
           <div className="w-full flex flex-col md:flex-row gap-2">
             <div className="w-full">
               <p className="text-[#4A7729] font-medium mb-4">
-                ¿Es miembro SUD?
+                ¿Es miembro de la Iglesia de Jesucristo de los Santos de los últimos días?
               </p>
               <Switcher
                 checked={participante.es_miembro}

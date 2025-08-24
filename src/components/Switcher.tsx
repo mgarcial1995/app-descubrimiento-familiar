@@ -15,17 +15,20 @@ const Switcher = ({ checked = false, onChange }: ISwitcher) => {
   };
 
   return (
-    <div
-      onClick={toggleSwitch}
-      className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300 ${
-        isOn ? "bg-green-500" : "bg-gray-300"
-      }`}
-    >
-      <div
-        className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-300 ${
-          isOn ? "translate-x-6" : "translate-x-0"
+    <div className="flex gap-4 items-center">
+        <div
+        onClick={toggleSwitch}
+        className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300 ${
+            isOn ? "bg-green-500" : "bg-gray-300"
         }`}
-      />
+        >
+        <div
+            className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-300 ${
+            isOn ? "translate-x-6" : "translate-x-0"
+            }`}
+        />
+        </div>
+        <p className="font-medium"> {isOn ? 'Si' : 'No'} </p>
     </div>
   );
 };

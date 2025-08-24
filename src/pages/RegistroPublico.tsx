@@ -12,8 +12,6 @@ import type { AxiosError } from 'axios';
 const RegistrarUsuario = () => {
   const navigate = useNavigate();
   const datosinit = {
-    tipo_documento: '',
-    documento: '',
     nombres: '',
     apellidos: '',
     direccion: '',
@@ -76,12 +74,6 @@ const RegistrarUsuario = () => {
     { label: 'Otro', value: 'Otro' },
   ];
 
-  const tipoDoc = [
-    { label: 'DNI', value: 'DNI' },
-    { label: 'C.E.', value: 'C.E.' },
-    { label: 'Otro', value: 'Otro' },
-  ];
-
   const handleChangeCampos = (e: any) => {
     const { name, type, value, checked } = e.target;
 
@@ -129,8 +121,6 @@ const RegistrarUsuario = () => {
 
   const isFormValid = () => {
     return (
-      participante.tipo_documento.trim() !== '' &&
-      participante.documento.trim() !== '' &&
       participante.nombres.trim() !== '' &&
       participante.apellidos.trim() !== '' &&
       participante.distrito.trim() !== '' &&
@@ -151,43 +141,16 @@ const RegistrarUsuario = () => {
         </div>
         <div className="bg-purple-50 border border-purple-200 p-4 rounded-2xl mb-6">
           <h2 className="text-xl font-bold text-purple-700 mb-3">
-            Cuatro grandes razones para conectarte con tu historia
+            Cuatro grandes razones para conectarte con tu historia familiar,  y participar del evento
           </h2>
           <ul className="space-y-2 text-gray-700">
             <li>✅ Construye tu árbol genealógico</li>
-            <li>✅ Explora el origen de tus apellidos</li>
-            <li>✅ Reflexiona sobre el valor de las familias</li>
+            <li>✅ Descubre el origen de tus apellidos</li>
+            <li>✅ Reflexiona sobre el valor de la familia</li>
             <li>✅ Llévate tu árbol familiar impreso</li>
           </ul>
         </div>
         <div className="w-full flex flex-col gap-2">
-          <div className="w-full flex flex-col md:flex-row gap-2">
-            <div className="w-full flex flex-col md:w-1/2">
-              <p className="text-[#4A7729] font-medium mb-1">
-                Tipo de Documento
-              </p>
-              <Select
-                className="basic-single w-full"
-                classNamePrefix="select"
-                isSearchable
-                name="tipo_documento"
-                onChange={handleChangeSelect}
-                value={{
-                  label: participante.tipo_documento || '',
-                  value: participante.tipo_documento || '',
-                }}
-                options={tipoDoc}
-              />
-            </div>
-            <div className="w-full md:w-1/2">
-              <Input
-                label="Nro. documento"
-                name="documento"
-                value={participante.documento}
-                onChange={handleChangeCampos}
-              />
-            </div>
-          </div>
           <div className="w-full flex flex-col md:flex-row gap-2">
             <Input
               label="Nombres"
@@ -242,14 +205,14 @@ const RegistrarUsuario = () => {
           <div className="w-full flex flex-col md:flex-row gap-2">
             <div className="w-full">
               <p className="text-[#4A7729] font-medium mb-4">
-                ¿Es miembro SUD?
+                ¿Es miembro de la Iglesia de Jesucristo de los Santos de los últimos días?
               </p>
               <Switcher
                 checked={participante.es_miembro}
                 onChange={(e) =>
                   setParticipante({ ...participante, es_miembro: e })
                 }
-              />
+              /> 
             </div>
             <div className="w-full">
               <p className="text-[#4A7729] font-medium mb-4">
