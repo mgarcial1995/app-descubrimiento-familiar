@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Modal from '../components/Modal';
 import type { IParticipante } from '../interfaces/participantes';
 import {
-    asistenciaParticipante,
+  asistenciaParticipante,
   traerDatosParticipante,
   traerParticipantes,
 } from '../services/participanteService';
@@ -43,7 +43,7 @@ const DatosUsuario = () => {
         nombre: `${el.nombres} ${el.apellidos}`,
         miembro: el.es_miembro,
         crear_cuenta: el.crear_cuenta_fs,
-        asistencia: el.asistio
+        asistencia: el.asistio,
       };
     });
 
@@ -77,9 +77,10 @@ const DatosUsuario = () => {
   };
 
   const marcarAsistencia = async (id: number) => {
-    await asistenciaParticipante(String(id))
-    await getDatosParticipante(String(id))
-  }
+    await asistenciaParticipante(String(id));
+    await getDatosParticipante(String(id));
+    await getDatosParticipantes();
+  };
 
   const verDatosUsuario = async (id: number) => {
     setToggleModal(true);
@@ -257,7 +258,8 @@ const DatosUsuario = () => {
                       Dirección:
                     </span>
                     <span className="text-gray-700">
-                      {datosParticipante?.direccion} - {datosParticipante?.distrito}
+                      {datosParticipante?.direccion} -{' '}
+                      {datosParticipante?.distrito}
                     </span>
                   </div>
                   <div className="flex items-start gap-3">
@@ -287,7 +289,9 @@ const DatosUsuario = () => {
                     </div>
                     {!datosParticipante?.asistio && (
                       <button
-                        onClick={() => marcarAsistencia(Number(datosParticipante?.id))}
+                        onClick={() =>
+                          marcarAsistencia(Number(datosParticipante?.id))
+                        }
                         className="px-4 cursor-pointer py-1 rounded-lg bg-[#4A7729] text-white hover:bg-[#6BA539] transition"
                       >
                         Marcar Asistencia
